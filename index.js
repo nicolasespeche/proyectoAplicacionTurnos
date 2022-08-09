@@ -3,6 +3,7 @@ const inputNombre = document.querySelector("#nombre")
 const inputApellido = document.querySelector("#apellido")
 const inputDiaTurno = document.querySelector("#diaTurno")
 const inputHoraTurno = document.querySelector("#horaTurno")
+const contenedorDeTurnos= document.querySelector("#contenedor-turnos")
 
 arrayTurnos = []
 
@@ -24,4 +25,26 @@ formulario.onsubmit = (event) => {
     localStorage.setItem("Turnos",arrayTurnosJSON)
 }
 
+
+arrayTurnosLs = localStorage.getItem("Turnos")
+
+console.log(arrayTurnosLs)
+
+arrayTurnosLsParseado = JSON.parse(arrayTurnosLs)
+
+console.log(arrayTurnosLsParseado)
+
+const cardTurno = arrayTurnosLsParseado.reduce((acc,elemento) => {
+    return acc + `
+            <div class="descripcionTurno">
+                <p>Paciente ${elemento.nombre}</p>
+                <p>Día del turno ${elemento.diaTurno}</p>
+                <p>Hora del turno ${elemento.horaTurno}</p>
+            </div>
+    `
+},"")
+
+
+
+contenedorDeTurnos.innerHTML = cardTurno
 
