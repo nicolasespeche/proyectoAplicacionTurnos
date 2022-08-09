@@ -26,13 +26,10 @@ formulario.onsubmit = (event) => {
 }
 
 
+
 arrayTurnosLs = localStorage.getItem("Turnos")
 
-console.log(arrayTurnosLs)
-
 arrayTurnosLsParseado = JSON.parse(arrayTurnosLs)
-
-console.log(arrayTurnosLsParseado)
 
 const cardTurno = arrayTurnosLsParseado.reduce((acc,elemento) => {
     return acc + `
