@@ -6,9 +6,7 @@ const inputHoraTurno = document.querySelector("#horaTurno")
 const contenedorDeTurnos= document.querySelector("#contenedor-turnos")
 const eliminarTurno = document.querySelector("#eliminarTurno")
 
-const arrayTurnos = []
-
-
+let arrayTurnos = []
 
 
 function turno (nombre,apellido,diaTurno,horaTurno){
@@ -61,3 +59,10 @@ formulario.onsubmit = (event) => {
         button: "Continuar",
     });
 }
+
+let turnosDelLS = arrayDelLS("Turnos")
+arrayTurnos = turnosDelLS
+contenedorDeTurnos.innerHTML = insertarHTML(arrayTurnos)
+
+
+
