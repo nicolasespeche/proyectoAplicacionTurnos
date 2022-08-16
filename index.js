@@ -4,8 +4,11 @@ const inputApellido = document.querySelector("#apellido")
 const inputDiaTurno = document.querySelector("#diaTurno")
 const inputHoraTurno = document.querySelector("#horaTurno")
 const contenedorDeTurnos= document.querySelector("#contenedor-turnos")
+const eliminarTurno = document.querySelector("#eliminarTurno")
 
-arrayTurnos = []
+const arrayTurnos = []
+
+
 
 
 function turno (nombre,apellido,diaTurno,horaTurno){
@@ -16,32 +19,45 @@ function turno (nombre,apellido,diaTurno,horaTurno){
 }
 
 
-formulario.onsubmit = (event) => {
-    event.preventDefault()
-    arrayTurnos.push(new turno (inputNombre.value, inputApellido.value, inputDiaTurno.value, inputHoraTurno.value))
-    console.log(arrayTurnos)
-    formulario.reset()
-    arrayTurnosJSON = JSON.stringify(arrayTurnos)
-    localStorage.setItem("Turnos",arrayTurnosJSON)
+const turnosJSON = (array) => {
+    arrayTurnosJSON = JSON.stringify(array)
+    localStorage.setItem("Turnos", arrayTurnosJSON)
+}
+
+const arrayDelLS = (clave) => {
+    arrayTurnosLS = localStorage.getItem(clave)
+    arrayTurnosLSParseado = JSON.parse(arrayTurnosLS)
+    return arrayTurnosLSParseado
 }
 
 
 
-arrayTurnosLs = localStorage.getItem("Turnos")
+function insertarHTML (array) {
+    const cardTurno = array.reduce((acc,elemento) => {
+        return acc + `
+                <div class="descripcionTurno">
+                    <p>Paciente ${elemento.nombre}</p>
+                    <p>Día del turno ${elemento.diaTurno}</p>
+                    <p>Hora del turno ${elemento.horaTurno}</p>
+                    <input type="submit" value="Eliminar turno" id="eliminarTurno">
+                </div>
+        `
+    },"")
+    return cardTurno
+}
 
-arrayTurnosLsParseado = JSON.parse(arrayTurnosLs)
 
-const cardTurno = arrayTurnosLsParseado.reduce((acc,elemento) => {
-    return acc + `
-            <div class="descripcionTurno">
-                <p>Paciente ${elemento.nombre}</p>
-                <p>Día del turno ${elemento.diaTurno}</p>
-                <p>Hora del turno ${elemento.horaTurno}</p>
-            </div>
-    `
-},"")
-
-
-
-contenedorDeTurnos.innerHTML = cardTurno
-
+formulario.onsubmit = (event) => {
+    event.preventDefault()
+    arrayTurnos.push(new turno(inputNombre.value, inputApellido.value, inputDiaTurno.value, inputHoraTurno.value))
+    turnosJSON(arrayTurnos)
+    arrayDelLS("Turnos")
+    contenedorDeTurnos.innerHTML = insertarHTML(arrayTurnosLSParseado)
+    formulario.reset()
+    swal({
+        title: "Turnos",
+        text: "El Turno fue reservado con éxito",
+        icon: "success",
+        button: "Continuar",
+    });
+}
