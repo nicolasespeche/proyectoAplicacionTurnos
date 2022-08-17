@@ -35,8 +35,8 @@ function insertarHTML (array) {
         return acc + `
                 <div class="descripcionTurno">
                     <p>Paciente ${elemento.nombre}</p>
-                    <p>Día del turno ${elemento.diaTurno}</p>
-                    <p>Hora del turno ${elemento.horaTurno}</p>
+                    <p>Día ${elemento.diaTurno}</p>
+                    <p>Hora ${elemento.horaTurno}</p>
                     <input type="submit" value="Eliminar turno" id="eliminarTurno">
                 </div>
         `
@@ -60,9 +60,13 @@ formulario.onsubmit = (event) => {
     });
 }
 
-let turnosDelLS = arrayDelLS("Turnos")
-arrayTurnos = turnosDelLS
+
+let arrayTurnosDelLs = arrayDelLS("Turnos")
+arrayTurnos = arrayTurnosDelLs
 contenedorDeTurnos.innerHTML = insertarHTML(arrayTurnos)
+
+
+
 
 
 
