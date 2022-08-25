@@ -17,6 +17,25 @@ function turno (nombre,apellido,diaTurno,horaTurno){
 }
 
 
+function validadorTurno (array,diaDelTurno,horaDelTurno){
+    for(let i=0; i >= array.length; i++){
+        if (diaDelTurno.value === array[i].diaTurno && horaDelTurno.value === array[i].horaTurno){
+            swal({
+                title: "Turnos",
+                text: "El Turno no se encuentra disponible",
+                icon: "error",
+                button: "Continuar",
+                });
+        }
+        else if (diaDelTurno.value != array[i].diaTurno && horaDelTurno.value != array[i].horaTurno){
+            array.push(new turno(inputNombre.value, inputApellido.value, inputDiaTurno.value, inputHoraTurno.value))
+        }
+    }
+}
+
+
+
+
 const turnosJSON = (array) => {
     arrayTurnosJSON = JSON.stringify(array)
     localStorage.setItem("Turnos", arrayTurnosJSON)
@@ -37,7 +56,6 @@ function insertarHTML (array) {
                     <p>Paciente ${elemento.nombre}</p>
                     <p>Día ${elemento.diaTurno}</p>
                     <p>Hora ${elemento.horaTurno}</p>
-                    <input type="submit" value="Eliminar turno" id="eliminarTurno">
                 </div>
         `
     },"")
@@ -47,7 +65,8 @@ function insertarHTML (array) {
 
 formulario.onsubmit = (event) => {
     event.preventDefault()
-    arrayTurnos.push(new turno(inputNombre.value, inputApellido.value, inputDiaTurno.value, inputHoraTurno.value))
+    validadorTurno(arrayTurnos,inputDiaTurno,inputHoraTurno)
+    //arrayTurnos.push(new turno(inputNombre.value, inputApellido.value, inputDiaTurno.value, inputHoraTurno.value))
     turnosJSON(arrayTurnos)
     arrayDelLS("Turnos")
     contenedorDeTurnos.innerHTML = insertarHTML(arrayTurnosLSParseado)
@@ -64,8 +83,6 @@ formulario.onsubmit = (event) => {
 let arrayTurnosDelLs = arrayDelLS("Turnos")
 arrayTurnos = arrayTurnosDelLs
 contenedorDeTurnos.innerHTML = insertarHTML(arrayTurnos)
-
-
 
 
 
