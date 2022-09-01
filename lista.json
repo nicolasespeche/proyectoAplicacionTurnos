@@ -1,0 +1,25 @@
+[
+    {
+        "nombre" : "Nicolas",
+        "apellido": "Espeche",
+        "diaTurno" : "10/20/2022",
+        "horaTurno" : "10:30"
+    },
+
+    {
+        "nombre": "Julian",
+        "apellido": "Gomez",
+        "diaTurno": "20/11/2022",
+        "horaTurno": "12:40"
+
+    },
+
+    {
+        "nombre": "Pablo",
+        "apellido": "Gimenez",
+        "diaTurno": "10/11/2022",
+        "horaTurno": "11:50"
+
+    }
+
+]
